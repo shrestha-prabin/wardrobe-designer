@@ -193,8 +193,11 @@ const App = () => {
       <div className="flex flex-col items-center h-screen w-screen bg-slate-200">
         <div className="flex items-center justify-center h-[85vh] w-[100vh] mt-6 space-x-4">
           {buttonsVisible && (
-            <button className="" onClick={addLeft}>
-              Add
+            <button
+              className="font-bold text-sm text-gray-800 border-2 border-slate-400 border-dashed p-4 rounded outline-none"
+              onClick={addLeft}
+            >
+              ADD
             </button>
           )}
 
@@ -223,7 +226,14 @@ const App = () => {
             }}
           </AppContext.Consumer>
 
-          {buttonsVisible && <button onClick={addRight}>Add</button>}
+          {buttonsVisible && (
+            <button
+            className="font-bold text-sm text-gray-800 border-2 border-slate-400 border-dashed p-4 rounded outline-none"
+            onClick={addRight}
+            >
+              ADD
+            </button>
+          )}
         </div>
       </div>
       <Controls onUndo={undo} />
