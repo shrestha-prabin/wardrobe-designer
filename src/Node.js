@@ -10,13 +10,10 @@ import React, {
 } from "react";
 import AppContext from "./AppContext";
 
-const containerStyle = {
-  position: "relative",
-  height: "100%",
-  userSelect: "none",
-  textAlign: "center",
-  whiteSpace: "nowrap",
-};
+import Trash from "./icons/Trash";
+import ViewColumn from "./icons/ViewColumn";
+import ViewRow from "./icons/ViewRow";
+import Counter from "./components/Counter";
 
 const barStyle = {
   background: "black",
@@ -32,8 +29,6 @@ const Node = ({
   color,
 }) => {
   const containerRef = useRef();
-
-  const [splitCount, setSplitCount] = useState(2);
 
   const appContext = useContext(AppContext);
 
@@ -55,46 +50,42 @@ const Node = ({
 
   if (!children || children?.length === 0) {
     return (
-      <Container style={containerStyle} vertical={vertical}>
+      <Container className="relative h-full" vertical={vertical}>
         <Section
           className="section"
           style={appContext.colorsVisible && { backgroundColor: color }}
         >
           {appContext.buttonsVisible && (
-            <div style={{ position: "absolute" }}>
-              <div>
-                <button
-                  onClick={() =>
-                    setSplitCount((count) => Math.max(2, count - 1))
-                  }
-                >
-                  -
-                </button>
-                <button>{splitCount}</button>
-                <button
-                  onClick={() =>
-                    setSplitCount((count) => Math.min(10, count + 1))
-                  }
-                >
-                  +
-                </button>
-              </div>
-              <div>
-                <button
-                  style={{ fontSize: 10 }}
-                  onClick={() => splitNode(splitCount, id, true)}
-                >
-                  V
-                </button>
-                <button
-                  style={{ fontSize: 10 }}
-                  onClick={() => splitNode(splitCount, id, false)}
-                >
-                  H
-                </button>
-                <button style={{ fontSize: 10 }} onClick={() => deleteNode(id)}>
-                  D
-                </button>
+            <div className="absolute h-full w-full flex items-center justify-center">
+              <div className="bg-white rounded flex flex-col items-center">
+                <div className="rounded bg-white w-full p-1 flex flex-row flex-wrap justify-center items-center">
+                  <button
+                    className="h-6 w-6 text-black relative rotate-90 overflow-hidden"
+                    title="Split Vertically"
+                    onClick={() => splitNode(appContext.segmentCount, id, true)}
+                  >
+                    <span className="material-icons-outlined md-24">
+                      view_column_outline
+                    </span>
+                  </button>
+                  <button
+                    className="h-6 w-6 text-black overflow-hidden"
+                    title="Split Horizontally"
+                    onClick={() =>
+                      splitNode(appContext.segmentCount, id, false)
+                    }
+                  >
+                    <span className="material-icons-outlined overflow-hidden">
+                      view_column_outline
+                    </span>
+                  </button>
+                  <button
+                    className="h-6 w-6 text-red-500 overflow-hidden"
+                    onClick={() => deleteNode(id)}
+                  >
+                    <span className="material-icons-outlined red-600">delete</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -104,7 +95,7 @@ const Node = ({
   }
   return (
     <Container
-      style={containerStyle}
+      className="relative h-full"
       vertical={vertical}
       ref={containerRef}
       onClick={() => updateSizes()}

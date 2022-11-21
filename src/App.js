@@ -9,19 +9,17 @@ import React, {
 } from "react";
 import Node from "./Node";
 import AppContext from "./AppContext";
+import Controls from "./components/Controls";
 
 const App = () => {
-  const outline = {
-    borderWidth: 8,
-    borderColor: "black",
-    borderStyle: "solid",
-  };
-
   const [data, setData] = useState({});
   const [dataStack, setDataStack] = useState([]);
 
   const [buttonsVisible, setButtonsVisible] = useState(true);
   const [colorsVisible, setColorsVisible] = useState(true);
+  const [height, setHeight] = useState(6);
+  const [width, setWidth] = useState(6);
+  const [segmentCount, setSegmentCount] = useState(2);
 
   useEffect(() => {
     init();
@@ -40,14 +38,16 @@ const App = () => {
 
     window.onkeydown = (e) => {
       switch (e.key.toUpperCase()) {
-        case "T":
-          toggleButtons();
+        case "Z":
+          undo();
           break;
 
-        case "Z":
-          if (e.metaKey || e.ctrlKey) {
-            undo();
-          }
+        case "C":
+          toggleColors();
+          break;
+
+        case "B":
+          toggleButtons();
           break;
 
         default:
@@ -171,50 +171,62 @@ const App = () => {
       value={{
         buttonsVisible,
         colorsVisible,
+        segmentCount,
+        height,
+        width,
         setButtonsVisible,
         setColorsVisible,
+        setSegmentCount,
+        setHeight,
+        setWidth,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-          paddingTop: 40,
-        }}
-      >
-        <div
-          style={{
-            margin: "auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {buttonsVisible && <button onClick={addLeft}>Add</button>}
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      />
 
-          <div style={{ ...outline, flex: 1, height: 600, width: 600 }}>
-            <Node
-              id={data?.id}
-              vertical={data?.vertical}
-              children={data?.children}
-              defaultSize={data?.defaultSize}
-              splitNode={splitNode}
-              deleteNode={deleteNode}
-            />
-          </div>
+      <div className="flex flex-col items-center h-screen w-screen bg-slate-200">
+        <div className="flex items-center justify-center h-[85vh] w-[100vh] mt-6 space-x-4">
+          {buttonsVisible && (
+            <button className="" onClick={addLeft}>
+              Add
+            </button>
+          )}
+
+          <AppContext.Consumer>
+            {({ height, width }) => {
+              return (
+                <div className="flex items-center justify-center h-[80vh] w-[80vh]">
+                  <div
+                    className={`border-8 border-solid shadow-2xl border-black`}
+                    style={{
+                      height: `${(height / Math.max(height, width)) * 100}%`,
+                      width: `${(width / Math.max(height, width)) * 100}%`,
+                    }}
+                  >
+                    <Node
+                      id={data?.id}
+                      vertical={data?.vertical}
+                      children={data?.children}
+                      defaultSize={data?.defaultSize}
+                      splitNode={splitNode}
+                      deleteNode={deleteNode}
+                    />
+                  </div>
+                </div>
+              );
+            }}
+          </AppContext.Consumer>
 
           {buttonsVisible && <button onClick={addRight}>Add</button>}
         </div>
-        <br />
-        <div>
-          <button onClick={undo}>Undo</button>
-          <button onClick={() => toggleButtons()}>Toggle</button>
-          <button onClick={() => toggleColors()}>Color</button>
-        </div>
       </div>
+      <Controls onUndo={undo} />
     </AppContext.Provider>
   );
 };
