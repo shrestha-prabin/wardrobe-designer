@@ -248,30 +248,15 @@ export default App;
 
 const randomColor = () => {
   const colors = [
-    "#5A8C9A",
-    "#84BAD2",
-    "#B6A0DE",
-    "#E2C756",
-    "#CE4826",
-    "#D64D5C",
-    "#46845B",
-    "#719E8D",
-    "#8AB793",
-    "#91A635",
-    "#73A23E",
-    "#3E448A",
-    "#335CBD",
-    "#577EB9",
-    "#2A5B78",
-    "#93A0AD",
-    "#C5A47A",
-    "#DDC590",
-    "#E2DECB",
-    "#67B5AB",
-    "#803B4F",
-    "#AC2290",
-    "#D18195",
-    "#A9C3EC",
+    '#EA907A', '#FBC687', '#F4F7C5', '#AACDBE',
+    '#DFF4F3', '#DDE7F2', '#B9BBDF', '#878ECD',
+    '#FFF5E4', '#FFE3E1', '#FFD1D1', '#FF9494',
+    '#E3FDFD', '#CBF1F5', '#A6E3E9', '#71C9CE',
+    '#BE9FE1', '#C9B6E4', '#E1CCEC', '#F1F1F6',
+    '#F9ECEC', '#F0D9DA', '#C8D9EB', '#ECF2F9',
+    '#FFEDDB', '#EDCDBB', '#E3B7A0', '#BF9270',
+    '#F5F0BB', '#C4DFAA', '#90C8AC', '#73A9AD',
+    '#FF7B54', '#FFB26B', '#FFD56B', '#939B62'
   ];
 
   return colors[Math.floor(Math.random() * colors.length)];
