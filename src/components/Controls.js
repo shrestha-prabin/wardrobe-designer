@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AppContext from "../AppContext";
 import Counter from "./Counter";
+import { classnames } from "tailwindcss-classnames";
 
 const SizeControls = () => {
   const appContext = useContext(AppContext);
@@ -47,17 +48,39 @@ const ActionControls = ({ onUndo }) => {
       </button>
 
       <button
-        className="flex flex-row items-center bg-white font-semibold text-sm outline-none focus:ring-2 focus:rounded p-1 active:text-black/50"
+        className={classnames(
+          "flex flex-row items-center bg-white font-semibold text-sm outline-none focus:ring-2 focus:rounded p-1 active:text-black/50",
+          {
+            ["line-through"]: !appContext.buttonsVisible,
+          }
+        )}
         onClick={() => appContext.setButtonsVisible(!appContext.buttonsVisible)}
       >
-        {appContext.buttonsVisible ? "Buttons (B)" : <s>Buttons (B)</s>}
+        Buttons (B)
       </button>
 
       <button
-        className="flex flex-row items-center bg-white font-semibold text-sm outline-none focus:ring-2 focus:rounded p-1 active:text-black/50"
+        className={classnames(
+          "flex flex-row items-center bg-white font-semibold text-sm outline-none focus:ring-2 focus:rounded p-1 active:text-black/50",
+          {
+            ["line-through"]: !appContext.colorsVisible,
+          }
+        )}
         onClick={() => appContext.setColorsVisible(!appContext.colorsVisible)}
       >
-        {appContext.colorsVisible ? "Colors (C)" : <s>Colors (C)</s>}
+        Colors (C)
+      </button>
+
+      <button
+        className={classnames(
+          "flex flex-row items-center bg-white font-semibold text-sm outline-none focus:ring-2 focus:rounded p-1 active:text-black/50 ",
+          {
+            ["line-through"]: !appContext.gridVisible,
+          }
+        )}
+        onClick={() => appContext.setGridVisible(!appContext.gridVisible)}
+      >
+        Grid (G)
       </button>
     </div>
   );

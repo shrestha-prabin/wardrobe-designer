@@ -2,22 +2,10 @@ import "./App.css";
 import { Container, Section, Bar } from "react-simple-resizer";
 import React, {
   Fragment,
-  useEffect,
   useRef,
-  useState,
-  useLayoutEffect,
   useContext,
 } from "react";
 import AppContext from "./AppContext";
-
-import Trash from "./icons/Trash";
-import ViewColumn from "./icons/ViewColumn";
-import ViewRow from "./icons/ViewRow";
-import Counter from "./components/Counter";
-
-const barStyle = {
-  background: "black",
-};
 
 const Node = ({
   id,
@@ -83,7 +71,9 @@ const Node = ({
                     className="h-6 w-6 text-red-500 overflow-hidden"
                     onClick={() => deleteNode(id)}
                   >
-                    <span className="material-icons-outlined red-600">delete</span>
+                    <span className="material-icons-outlined red-600">
+                      delete
+                    </span>
                   </button>
                 </div>
               </div>
@@ -115,7 +105,7 @@ const Node = ({
               />
             </Section>
 
-            {i < children.length - 1 && <Bar style={barStyle} size={8} />}
+            {i < children.length - 1 && <Bar className="bg-black" size={8} />}
           </Fragment>
         );
       })}

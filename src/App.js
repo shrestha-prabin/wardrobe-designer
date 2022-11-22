@@ -1,15 +1,9 @@
 import "./App.css";
-import { Container, Section, Bar } from "react-simple-resizer";
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import Node from "./Node";
 import AppContext from "./AppContext";
 import Controls from "./components/Controls";
+import RulerView from "./components/RulerView";
 
 const App = () => {
   const [data, setData] = useState({});
@@ -17,6 +11,7 @@ const App = () => {
 
   const [buttonsVisible, setButtonsVisible] = useState(true);
   const [colorsVisible, setColorsVisible] = useState(true);
+  const [gridVisible, setGridVisible] = useState(true);
   const [height, setHeight] = useState(6);
   const [width, setWidth] = useState(6);
   const [segmentCount, setSegmentCount] = useState(2);
@@ -43,11 +38,15 @@ const App = () => {
           break;
 
         case "C":
-          toggleColors();
+          setColorsVisible((visible) => !visible);
           break;
 
         case "B":
-          toggleButtons();
+          setButtonsVisible((visible) => !visible);
+          break;
+
+        case "G":
+          setGridVisible((visible) => !visible);
           break;
 
         default:
@@ -142,7 +141,7 @@ const App = () => {
       // console.log("node found");
       return {
         ...node,
-        children: node.children.filter((item) => item.id != id),
+        children: node.children.filter((item) => item.id !== id),
       };
     } else {
       return {
@@ -158,24 +157,18 @@ const App = () => {
     }
   };
 
-  const toggleButtons = () => {
-    setButtonsVisible((visible) => !visible);
-  };
-
-  const toggleColors = () => {
-    setColorsVisible((visible) => !visible);
-  };
-
   return (
     <AppContext.Provider
       value={{
         buttonsVisible,
         colorsVisible,
+        gridVisible,
         segmentCount,
         height,
         width,
         setButtonsVisible,
         setColorsVisible,
+        setGridVisible,
         setSegmentCount,
         setHeight,
         setWidth,
@@ -192,7 +185,7 @@ const App = () => {
 
       <div className="flex flex-col items-center h-screen w-screen bg-slate-200">
         <div className="flex items-center justify-center h-[85vh] w-[100vh] mt-6 space-x-4">
-          {buttonsVisible && (
+          {true && (
             <button
               className="font-bold text-sm text-gray-800 border-2 border-slate-400 border-dashed p-4 rounded outline-none"
               onClick={addLeft}
@@ -204,7 +197,7 @@ const App = () => {
           <AppContext.Consumer>
             {({ height, width }) => {
               return (
-                <div className="flex items-center justify-center h-[80vh] w-[80vh]">
+                <div className="relative flex items-center justify-center h-[80vh] w-[80vh]">
                   <div
                     className={`border-8 border-solid shadow-2xl border-black`}
                     style={{
@@ -221,15 +214,23 @@ const App = () => {
                       deleteNode={deleteNode}
                     />
                   </div>
+
+                  {gridVisible && (
+                    <RulerView
+                      className="absolute top-0 left-0 h-full w-full bg-white/0 pointer-events-none"
+                      height={height}
+                      width={width}
+                    />
+                  )}
                 </div>
               );
             }}
           </AppContext.Consumer>
 
-          {buttonsVisible && (
+          {true && (
             <button
-            className="font-bold text-sm text-gray-800 border-2 border-slate-400 border-dashed p-4 rounded outline-none"
-            onClick={addRight}
+              className="font-bold text-sm text-gray-800 border-2 border-slate-400 border-dashed p-4 rounded outline-none"
+              onClick={addRight}
             >
               ADD
             </button>
