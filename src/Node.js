@@ -1,4 +1,3 @@
-import "./App.css";
 import { Container, Section, Bar } from "react-simple-resizer";
 import React, {
   Fragment,
@@ -45,7 +44,7 @@ const Node = ({
         >
           {appContext.buttonsVisible && (
             <div className="absolute h-full w-full flex items-center justify-center">
-              <div className="bg-white rounded flex flex-col items-center">
+              <div className="bg-white flex flex-col items-center">
                 <div className="rounded bg-white w-full p-1 flex flex-row flex-wrap justify-center items-center">
                   <button
                     className="h-6 w-6 text-black relative rotate-90 overflow-hidden"

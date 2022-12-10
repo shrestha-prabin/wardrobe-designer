@@ -11,7 +11,10 @@ const RulerView = ({ height, width, ...props }) => {
       >
         {Array.from({ length: count }).map((_, i) => {
           return (
-            <div className="col-span-1 border-x-[0.5px] border-black/20 h-full"></div>
+            <div
+              className="col-span-1 border-x-[0.5px] border-black/20 h-full"
+              key={i}
+            />
           );
         })}
       </div>
@@ -22,7 +25,10 @@ const RulerView = ({ height, width, ...props }) => {
       >
         {Array.from({ length: count }).map((_, i) => {
           return (
-            <div className="row-span-1 border-y-[0.5px] border-black/20 h-full" />
+            <div
+              className="row-span-1 border-y-[0.5px] border-black/20 h-full"
+              key={i}
+            />
           );
         })}
       </div>
