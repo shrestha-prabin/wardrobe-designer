@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Node from "../Node";
 import AppContext from "../AppContext";
+import Node from "../Node";
 import Controls from "../components/Controls";
 import RulerView from "../components/RulerView";
 
@@ -17,6 +17,7 @@ const DesignerPage = () => {
 
   useEffect(() => {
     init();
+    initHotkeys();
 
     window.onbeforeunload = () => {
       // return "";
@@ -27,10 +28,15 @@ const DesignerPage = () => {
     setDataStack((prevData) => [...prevData, data]);
   };
 
-  useEffect(() => {
-    setData(dataStack[dataStack.length - 1]);
-
+  const initHotkeys = () => {
     window.onkeydown = (e) => {
+      let numKey = parseInt(e.key);
+      if (numKey == 0) numKey = 10;
+      if (numKey && numKey > 1) {
+        setSegmentCount(numKey);
+        return;
+      }
+
       switch (e.key.toUpperCase()) {
         case "Z":
           undo();
@@ -48,10 +54,23 @@ const DesignerPage = () => {
           setGridVisible((visible) => !visible);
           break;
 
+        case "-":
+          setSegmentCount((count) => Math.max(2, count - 1));
+          break;
+
+        case "+":
+        case "=":
+          setSegmentCount((count) => Math.min(12, count + 1));
+          break;
+
         default:
           break;
       }
     };
+  };
+
+  useEffect(() => {
+    setData(dataStack[dataStack.length - 1]);
   }, [dataStack]);
 
   const init = () => {
@@ -62,7 +81,7 @@ const DesignerPage = () => {
           vertical: false,
           children: [],
           color: randomColor(),
-          // defaultSize: 100
+          defaultSize: 100
         },
       ],
     });
@@ -247,15 +266,42 @@ export default DesignerPage;
 
 const randomColor = () => {
   const colors = [
-    '#EA907A', '#FBC687', '#F4F7C5', '#AACDBE',
-    '#DFF4F3', '#DDE7F2', '#B9BBDF', '#878ECD',
-    '#FFF5E4', '#FFE3E1', '#FFD1D1', '#FF9494',
-    '#E3FDFD', '#CBF1F5', '#A6E3E9', '#71C9CE',
-    '#BE9FE1', '#C9B6E4', '#E1CCEC', '#F1F1F6',
-    '#F9ECEC', '#F0D9DA', '#C8D9EB', '#ECF2F9',
-    '#FFEDDB', '#EDCDBB', '#E3B7A0', '#BF9270',
-    '#F5F0BB', '#C4DFAA', '#90C8AC', '#73A9AD',
-    '#FF7B54', '#FFB26B', '#FFD56B', '#939B62'
+    "#EA907A",
+    "#FBC687",
+    "#F4F7C5",
+    "#AACDBE",
+    "#DFF4F3",
+    "#DDE7F2",
+    "#B9BBDF",
+    "#878ECD",
+    "#FFF5E4",
+    "#FFE3E1",
+    "#FFD1D1",
+    "#FF9494",
+    "#E3FDFD",
+    "#CBF1F5",
+    "#A6E3E9",
+    "#71C9CE",
+    "#BE9FE1",
+    "#C9B6E4",
+    "#E1CCEC",
+    "#F1F1F6",
+    "#F9ECEC",
+    "#F0D9DA",
+    "#C8D9EB",
+    "#ECF2F9",
+    "#FFEDDB",
+    "#EDCDBB",
+    "#E3B7A0",
+    "#BF9270",
+    "#F5F0BB",
+    "#C4DFAA",
+    "#90C8AC",
+    "#73A9AD",
+    "#FF7B54",
+    "#FFB26B",
+    "#FFD56B",
+    "#939B62",
   ];
 
   return colors[Math.floor(Math.random() * colors.length)];

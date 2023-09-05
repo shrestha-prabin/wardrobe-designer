@@ -1,7 +1,7 @@
 import React from "react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import DesignerPage from "./pages/DesignerPage";
-import PreviewPage from "./pages/PreviewPage";
+import PreviewPage from "./pages/PreviewPage2";
 
 const App = () => {
   return (

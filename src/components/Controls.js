@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { classnames } from "tailwindcss-classnames";
 import AppContext from "../AppContext";
 import Counter from "./Counter";
-import { classnames } from "tailwindcss-classnames";
-import {Link} from 'react-router-dom'
 
 const SizeControls = () => {
   const appContext = useContext(AppContext);
@@ -97,7 +97,10 @@ const Controls = ({ onUndo }) => {
         <div className="h-8 w-[1px] bg-gray-200" />
         <div className="flex flex-row items-center space-x-2">
           <label>Split Count</label>
-          <Counter onChange={(count) => appContext.setSegmentCount(count)} />
+          <Counter
+            defaultValue={appContext.segmentCount}
+            onChange={(count) => appContext.setSegmentCount(count)}
+          />
         </div>
         <div className="h-8 w-[1px] bg-gray-200" />
         <SizeControls />
@@ -105,7 +108,11 @@ const Controls = ({ onUndo }) => {
         <div className="h-8 w-[1px] bg-gray-200" />
 
         <div>
-          <Link className="outline-none focus:ring-2 focus:rounded flex p-2" to={'/view'}>
+          <Link
+            className="outline-none focus:ring-2 focus:rounded flex p-2"
+            to={"/view"}
+            target="_blank"
+          >
             <span className="material-icons-outlined">view_in_ar</span>
           </Link>
         </div>
