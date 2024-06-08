@@ -1,3 +1,5 @@
+## Wardrobe Designer
+
 [Demo](https://wardrobe-designer.vercel.app/)
 
 <img src="./imgs/sample1.png"/>
