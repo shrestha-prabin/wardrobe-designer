@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
+import React from "react";
 
 const thickness = 0.1;
 
@@ -16,7 +16,8 @@ const data = {
           id: 1669190061497,
           color: "red",
           vertical: false,
-          children: [
+          
+          children0: [
             {
               id: 1669190062630,
               color: "orange",
@@ -60,7 +61,8 @@ const Pane = ({ width, height, color, position, divide, vertical }) => {
       <mesh>
         <boxGeometry args={[width, height, 0.2]} />
         <meshPhysicalMaterial
-          color={color}
+          // color={color}
+          color={'white'}
           transmission={1}
           reflectivity={1}
           metalness={0}
@@ -76,14 +78,14 @@ const Pane = ({ width, height, color, position, divide, vertical }) => {
         return (
           <mesh position={[horizontal ? px : 0, vertical ? py : 0, 0.2]}>
             <boxGeometry
-              args={[horizontal ? 0.1 : width, vertical ? 0.1 : height, 0.2]}
+              args={[horizontal ? 0.1 : width, vertical ? 0.1 : height, 1.2]}
             />
             <meshPhysicalMaterial
               color={"black"}
               transmission={1}
-              reflectivity={1}
-              metalness={0}
-              roughness={0.2}
+              reflectivity={12}
+              metalness={2}
+              roughness={0.3}
             />
           </mesh>
         );
@@ -100,7 +102,7 @@ const Cabinet = ({ width, height, position, children, vertical, color }) => {
         height={width}
         width={height}
         color={color}
-        divide={1}
+        divide={2}
       />
     );
   }
@@ -113,7 +115,8 @@ const Cabinet = ({ width, height, position, children, vertical, color }) => {
             height={width}
             width={height}
             color={item.color}
-            position={[Math.random()*10, Math.random()*10, Math.random()]}
+            position={item.position}
+            // position={[Math.random()*10, Math.random()*10, Math.random()]}
             children={item.children}
             vertical={item.vertical}
           />
@@ -141,13 +144,13 @@ const PreviewPage = () => {
         <color attach={"background"} args={["white"]} />
         <ambientLight intensity={0.5} />
         <OrbitControls />
-        <pointLight position={[10, 10, 10]} />
+        <pointLight position={[10, 10, 10]} intensity={0.4}/>
 
-        <Pane
+        {/* <Pane
           width={4}
           height={4}
           color="orange"
-          position={[-2.1, -6, 0]}
+          // position={[-3, -6, 0]}
           divide={4}
           vertical
         />
@@ -156,9 +159,9 @@ const PreviewPage = () => {
           width={4}
           height={4}
           color="orange"
-          position={[2.1, -6, 0]}
+          // position={[3, -6, 0]}
           divide={2}
-        />
+        /> */}
         <Wardrobe />
       </Canvas>
     </div>

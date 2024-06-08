@@ -76,13 +76,50 @@ const DesignerPage = () => {
   const init = () => {
     addData({
       children: [
-        {
-          id: new Date().getTime(),
-          vertical: false,
-          children: [],
-          color: randomColor(),
-          defaultSize: 100
-        },
+        // {
+        //   id: 1669190061186,
+        //   vertical: false,
+        //   color: "#FFD56B",
+        //   children: [
+        //     {
+        //       id: 1669190061497,
+        //       color: "red",
+        //       vertical: false,
+        //       children0: [
+        //         {
+        //           id: 1669190062630,
+        //           color: "orange",
+        //           children: [
+        //             {
+        //               id: 1669190062630,
+        //               color: "red",
+        //             },
+        //             {
+        //               id: 1669190062629,
+        //               color: "green",
+        //             },
+        //             {
+        //               id: 1669190062630,
+        //               color: "blue",
+        //             },
+        //           ],
+        //         },
+        //         {
+        //           id: 1669190062629,
+        //           color: "yellow",
+        //         },
+        //         {
+        //           id: 1669190062630,
+        //           color: "orange",
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       id: 1669190061498,
+        //       color: "green",
+        //     },
+        //   ],
+        // },
       ],
     });
   };
