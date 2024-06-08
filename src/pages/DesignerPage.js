@@ -26,7 +26,12 @@ const DesignerPage = () => {
 
   const addData = (data) => {
     setDataStack((prevData) => [...prevData, data]);
+    console.log({ dataStack });
   };
+
+  useEffect(() => {
+    initHotkeys()
+  }, [dataStack])
 
   const initHotkeys = () => {
     window.onkeydown = (e) => {
